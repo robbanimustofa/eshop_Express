@@ -1,16 +1,16 @@
 const express = require('express')
-require('dotenv/config');
+const app = express();
 const mongoose = require('mongoose')
 
-const app = express();
+require('dotenv/config');
+const api = process.env.API_URL;
+const productsRouter = require('./routes/products');
 
 // Midleware
 app.use(express.json());
-const api = process.env.API_URL
 
-app.get(api+'/product', (req, res)=>{
-    res.send('Hello API')
-})
+// Routers
+app.use(`${api}/products`, productsRouter)
 
 mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser:true,
