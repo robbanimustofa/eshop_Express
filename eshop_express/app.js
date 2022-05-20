@@ -11,6 +11,7 @@ app.use(express.json());
 
 // Routers
 app.use(`${api}/products`, productsRouter)
+// const productsRoutes = require('./routes/products')
 
 mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser:true,
