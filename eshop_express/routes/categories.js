@@ -12,7 +12,17 @@ router.get('/', async (req, res)=>{
     if(!categoryList){
         res.status(500).json({success: false})
     }
-    res.send(categoryList)
+    res.status(200).send(categoryList)
+})
+
+// API Router GET Detail Category
+router.get('/:id', async(req,res)=>{
+    const detailCategory = await Category.findById(req.params.id);
+
+    if(!detailCategory){
+        res.status(500).json({message:'Detail Category Tidak Ditemukan karna ID category salah'})
+    }
+    res.status(200).send(detailCategory)
 })
 
 // API Router POST Category
