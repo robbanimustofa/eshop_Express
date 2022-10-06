@@ -2,7 +2,7 @@ const express = require('express')
 const app = express();
 const mongoose = require('mongoose')
 
-require('dotenv/config'); test1
+require('dotenv/config'); test2
 const api = process.env.API_URL;
 const productsRouter = require('./routes/products');
 
