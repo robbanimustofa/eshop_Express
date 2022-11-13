@@ -3,7 +3,8 @@ const app = express();
 const mongoose = require('mongoose')
 const cors = require('cors')
 const productsRouter = require('./routes/products');
-const categoryRouter = require('./routes/categories')
+const categoryRouter = require('./routes/categories');
+const usersRouter = require('./routes/user');
 
 require('dotenv/config'); 
 const api = process.env.API_URL;
@@ -16,6 +17,7 @@ app.use(cors());
 // Routers
 app.use(`${api}/products`, productsRouter)
 app.use(`${api}/category`, categoryRouter)
+app.use(`${api}/users`, usersRouter)
 
 mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser:true,
@@ -33,3 +35,4 @@ app.listen(3000, ()=>{
     // console.log('server is running http://localhost:3000')
     console.log(api);
 })
+
