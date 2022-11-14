@@ -11,17 +11,30 @@ const bcrypt = require('bcryptjs')
 // API Router GET All Users
 router.get(`/`,async (req, res)=>{
     try {
-        const userList = await User.find();
-        if(!userList){
+        const data = await User.find().select('-passwordHash');
+        if(!data){
             res.status(500).json({success: false, message:"Gagal Menampilkan list User"})
         }
-        res.status(200).json({userList, message:'Berhasil Menyimpan Data', status:200})
+        res.status(200).json({data, message:'Berhasil Menyimpan Data', status:200})
     } catch (error) {
         res.status(400).json({message:error.message, Status:400})
     }
 })
 
-// API Router POST Category
+// API Router GET Detail User
+router.get('/:id', async(req,res)=>{
+    try {
+        const data = await User.findById(req.params.id).select('-passwordHash');;
+        if(!data){
+        res.status(500).json({success: false, status:500, message:`User ID ${req.params.id} Tidak Ditemukan`})
+        }
+        res.status(200).json({data, message:'Berhasil Menampilkan Detail User', status:200})
+    } catch (error) {
+        res.status(400).json({message:`User ID ${req.params.id} Tidak Sesuai`, Status:400})
+    }
+})
+
+// API Router POST User
 router.post('/',async (req,res)=>{
     try {
         const user = new User({
@@ -39,7 +52,7 @@ router.post('/',async (req,res)=>{
         const data = user
         await data.save()
         if(!data){
-            return res.status(500).send("Product Cannot be Created")
+            return res.status(500).send("User Cannot be Created")
         }
         res.status(200).json({data, message:'Berhasil Menyimpan Data', status:200})
     } catch (error) {

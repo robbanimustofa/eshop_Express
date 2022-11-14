@@ -4,7 +4,8 @@ const mongoose = require('mongoose')
 const categirySchema = mongoose.Schema({
     name:{
         type: String,
-        required: true
+        required: true,
+        unique:true
     },
     icon:{
         type: String,
