@@ -35,8 +35,8 @@ router.get('/:id', async(req,res)=>{
     }
 })
 
-// API Router POST User
-router.post('/',async (req,res)=>{
+// API Router Create User / Register
+router.post('/register',async (req,res)=>{
     try {
         const user = new User({
             name: req.body.name,
@@ -64,19 +64,30 @@ router.post('/',async (req,res)=>{
 // API Router GET Users Login
 router.post(`/login`,async (req, res)=>{
     try {
+        // Check email if passed then Check Password if passed then login
         const data = await User.findOne({email: req.body.email})
+        const secret = process.env.secret
         if(!data){
             res.status(500).json({success: false, message:"User Tidak Ditemukan atau belum Terdaftar!"})
-        }
-        if(data && bcrypt.compareSync(req.body.password, data.passwordHash)){
+        }else if (data && bcrypt.compareSync(req.body.password, data.passwordHash)) {
             const token = jwt.sign({
                 userId: data._id
-            }, 'secret',{expiresIn:'1d'}
+            }, secret,{expiresIn:'1d'}
             )
             res.status(200).json({data: data.email, token:token})
         }else{
             res.status(500).json({success: false, message:"Password salah!"})
         }
+        // Compare password on db if passed then login success
+        // if(data && bcrypt.compareSync(req.body.password, data.passwordHash)){
+        //     const token = jwt.sign({
+        //         userId: data._id
+        //     }, 'secret',{expiresIn:'1d'}
+        //     )
+        //     res.status(200).json({data: data.email, token:token})
+        // }else{
+        //     res.status(500).json({success: false, message:"Password salah!"})
+        // }
     } catch (error) {
         res.status(400).json({message:error.message, Status:400})
     }
