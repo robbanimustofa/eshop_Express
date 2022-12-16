@@ -5,9 +5,10 @@ const cors = require('cors')
 const productsRouter = require('./routes/products');
 const categoryRouter = require('./routes/categories');
 const usersRouter = require('./routes/user');
+const orderRouter = require('./routes/order')
 require('dotenv/config'); 
-const authJwt = require('./helpers/jwt');
-const errorHandler = require('./helpers/error-handler')
+// const authJwt = require('./helpers/jwt');
+// const errorHandler = require('./helpers/error-handler')
 
 
 const api = process.env.API_URL;
@@ -16,13 +17,14 @@ const api = process.env.API_URL;
 // Midleware
 app.use(express.json());
 app.use(cors());
-app.use(authJwt());
-app.use(errorHandler)
+// app.use(authJwt());
+// app.use(errorHandler)
 
 // Routers
 app.use(`${api}/products`, productsRouter)
 app.use(`${api}/category`, categoryRouter)
 app.use(`${api}/users`, usersRouter)
+app.use(`${api}/order`, orderRouter)
 
 mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser:true,

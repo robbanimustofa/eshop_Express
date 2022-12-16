@@ -1,0 +1,16 @@
+// Order Example
+// {
+//     "orderItems" :[{
+//     "quantity":"2",
+//     "product":"6370e9db7be9e4d6096a3da7"
+// }],
+//     "shippingAddress1":"Kebon Kacang",
+//     "shippingAddress2":"-",
+//     "city":"jakarta",
+//     "zip":"356101",
+//     "country":"Indonesia",
+//     "phone":"+6287757382530",
+//     "status":"Pending",
+//     "totalPrice":"20.000",
+//     "user":"6370d9daf4e28bfa47ceb7c0",
+// }
